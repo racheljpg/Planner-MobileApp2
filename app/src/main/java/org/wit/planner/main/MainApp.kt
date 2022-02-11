@@ -10,12 +10,12 @@ import org.wit.planner.models.PlannerStore
 
 class MainApp : Application(), AnkoLogger {
 
-    lateinit var planners: PlannerStore
+    lateinit var plannerStore: PlannerStore
 
     override fun onCreate() {
         super.onCreate()
-        //planners = PlannerMemStore()
-        planners = PlannerJSONStore(applicationContext)
-        info("Planner started")
+        //plannerStore = PlannerMemStore()
+        plannerStore = PlannerJSONStore(applicationContext)
+        info("Planner App started")
     }
 }

@@ -14,4 +14,7 @@
     <string name="button_location">Set Location</string>
     <string name="title_activity_maps">Map</string>
     <string name="menu_deletePlanner">Delete</string>
+    <string name="listOfItems">List of Items</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
