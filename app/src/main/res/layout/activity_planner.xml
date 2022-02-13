@@ -63,20 +63,6 @@
                     android:padding="8dp"
                     android:textSize="14sp" />
 
-                <DatePicker
-                    android:id="@+id/dateOfEvent"
-                    android:layout_width="387dp"
-                    android:layout_height="86dp"
-                    android:layout_margin="8dp"
-                    android:calendarViewShown="false"
-                    android:datePickerMode="spinner"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.95"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.457" />
-
                 <Button
                     android:id="@+id/chooseImage"
                     android:layout_width="match_parent"

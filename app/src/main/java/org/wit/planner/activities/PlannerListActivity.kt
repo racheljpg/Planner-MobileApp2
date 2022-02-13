@@ -13,11 +13,7 @@ import org.jetbrains.anko.startActivityForResult
 import org.wit.planner.R
 import org.wit.planner.main.MainApp
 import org.wit.planner.models.PlannerModel
-//JUNK for search view
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.SearchView
-import android.widget.Toast
 
 class PlannerListActivity : AppCompatActivity(), PlannerItemListener {
 
@@ -36,7 +32,6 @@ class PlannerListActivity : AppCompatActivity(), PlannerItemListener {
         setSupportActionBar(toolbar)
 
         //code for search bar
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 /**
@@ -55,7 +50,6 @@ class PlannerListActivity : AppCompatActivity(), PlannerItemListener {
                 return false
             }
         })
-
         //end of code for search bar
     }
 

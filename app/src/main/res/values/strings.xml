@@ -6,7 +6,7 @@
     <string name="menu_addItem">Add</string>
     <string name="menu_cancelItem">Cancel</string>
     <string name="enter_planner_title"> Please enter a Planner Title </string>
-    <string name="save_planner"> Save Planner </string>
+    <string name="save_planner"> Save Item </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_planner_image">Select Planner Image</string>
     <string name="change_planner_image">Change Image</string>
@@ -15,6 +15,4 @@
     <string name="title_activity_maps">Map</string>
     <string name="menu_deletePlanner">Delete</string>
     <string name="listOfItems">List of Items</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
