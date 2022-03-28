@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import org.wit.plannerapp.databinding.FragmentHomeBinding
+import org.wit.plannerapp.databinding.FragmentAddBinding
 
-class HomeFragment : Fragment() {
+class AddFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentAddBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,18 +22,19 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val addViewModel =
+            ViewModelProvider(this).get(AddViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.itemTitle
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        addViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
