@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import org.wit.plannerapp.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -28,9 +29,9 @@ class ListFragment : Fragment() {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textList
+        val recyclerView: RecyclerView = binding.recyclerView
         listViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            //recyclerView.
         }
         return root
     }
