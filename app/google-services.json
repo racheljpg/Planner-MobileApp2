@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "122353607831",
+    "project_id": "planner-app-66567",
+    "storage_bucket": "planner-app-66567.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122353607831:android:49a791f56e07e9d04af5d2",
+        "android_client_info": {
+          "package_name": "org.wit.plannerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122353607831-51lphmfj03snp43egsfapfr5d70eveav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVmCMQ9HeuMCJkHm_zlQTKOwUttn-VX7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122353607831-51lphmfj03snp43egsfapfr5d70eveav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
