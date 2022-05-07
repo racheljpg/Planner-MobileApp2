@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.wit.plannerapp.databinding.FragmentListBinding
+import org.wit.plannerapp.models.ItemModel
 
 class ListFragment : Fragment() {
 
@@ -40,4 +41,9 @@ class ListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    //listener for button -
+    //override fun onItemClick(item: ItemModel) {
+        //
+    //}
 }
