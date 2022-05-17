@@ -13,7 +13,7 @@ interface PlannerItemListener {
     fun onPlannerItemClick(planner : ItemModel)
 }
 
-class PlannerAdapter constructor(private var planners: List<ItemModel>,
+class PlannerAdapter constructor(private var planners: ArrayList<ItemModel>,
                                  private val listener: PlannerItemListener) : RecyclerView.Adapter<PlannerAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -32,10 +32,12 @@ class PlannerAdapter constructor(private var planners: List<ItemModel>,
     class MainHolder constructor(val binding : CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(planner: ItemModel,  listener : PlannerItemListener) {
-            //binding.itemTitle.text = planner.title
-            //could add icon on card instead
-            //itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, planner.image))
-            //binding.setOnClickListener { listener.onPlannerItemClick(planner) }
+            binding.root.tag = planner
+            binding.item = planner
+            //binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
+            binding.executePendingBindings()
+            binding.root.setOnClickListener { listener.onPlannerItemClick(planner) }
+
         }
     }
 }

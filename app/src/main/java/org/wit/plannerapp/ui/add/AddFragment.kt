@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import org.wit.plannerapp.R
 import org.wit.plannerapp.databinding.FragmentAddBinding
@@ -20,6 +22,7 @@ class AddFragment : Fragment() {
     private var _binding: FragmentAddBinding? = null
     lateinit var addViewModel : AddViewModel
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -62,11 +65,22 @@ class AddFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.itemTitle
-        addViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
+        addViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
+                status -> status?.let { render(status) }
+        })
         addButtonListener(binding)
         return root
+    }
+
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.item_error), Toast.LENGTH_LONG).show()
+        }
     }
 
 

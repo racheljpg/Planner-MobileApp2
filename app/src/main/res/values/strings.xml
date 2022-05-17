@@ -11,11 +11,12 @@
     <string name="menu_list">List</string>
     <string name="menu_listdetail">List Detail</string>
 
-    <string name="message">Message :</string>
+    <string name="message">Title :</string>
+    <string name="description">Description: </string>
 
 
     <string name="messageLoading">Please Wait while the Donations are Loading...</string>
-
+    <string name="item_error">Error adding item</string>
     <!-- START Firebase Resources-->
 
     <string name="label_emailpassword">Email/Password Authentication</string>
