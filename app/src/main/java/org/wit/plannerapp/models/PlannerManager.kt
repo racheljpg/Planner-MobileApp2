@@ -1,5 +1,7 @@
 package org.wit.plannerapp.models
 
+import timber.log.Timber
+
 object PlannerManager : PlannerStore {
 
     var lastId = 0L
@@ -29,6 +31,17 @@ object PlannerManager : PlannerStore {
 
     override fun search(searchTerm: String): List<ItemModel> {
         TODO("Not yet implemented")
+    }
+
+    //override fun findById(id:Long) : ItemModel? {
+    override fun findById(id:Long) : ItemModel? {
+        val foundItem: ItemModel? = planners.find { it.id == id }
+        return foundItem
+    }
+
+    fun logAll() {
+        Timber.v("** Item List **")
+        planners.forEach { Timber.v("Item ${it}") }
     }
 
 }

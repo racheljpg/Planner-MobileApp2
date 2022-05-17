@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_list" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_listdetail"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_listdetail" />
     </group>
     <item android:title="Access Control">
         <menu>

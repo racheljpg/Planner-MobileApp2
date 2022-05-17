@@ -18,8 +18,12 @@
         tools:layout="@layout/fragment_list" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="org.wit.plannerapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_listdetail"
+        android:name="org.wit.plannerapp.ui.detail.ListDetailFragment"
+        android:label="@string/menu_listdetail"
+        tools:layout="@layout/fragment_listdetail" >
+        <argument
+            android:name="itemid"
+            app:argType="string" />
+    </fragment>
 </navigation>

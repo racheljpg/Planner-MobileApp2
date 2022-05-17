@@ -41,9 +41,4 @@ class ListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    //listener for button -
-    //override fun onItemClick(item: ItemModel) {
-        //
-    //}
 }
