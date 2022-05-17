@@ -14,10 +14,6 @@ class AddViewModel : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is a test"
-    }
-    val text: LiveData<String> = _text
 
     fun addItem(firebaseUser: MutableLiveData<FirebaseUser>,
                 item: ItemModel) {

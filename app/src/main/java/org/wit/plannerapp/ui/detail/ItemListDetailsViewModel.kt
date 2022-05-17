@@ -7,7 +7,7 @@ import org.wit.plannerapp.models.ItemModel
 import org.wit.plannerapp.models.PlannerManager
 import timber.log.Timber
 
-class ListDetailViewModel : ViewModel() {
+class ItemListDetailsViewModel : ViewModel() {
 
     private val item = MutableLiveData<ItemModel>()
 

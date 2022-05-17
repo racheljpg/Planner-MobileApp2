@@ -10,11 +10,6 @@ import java.lang.Exception
 
 class ListViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is list Fragment"
-    }
-    val text: LiveData<String> = _text
-
     private val itemList =
         MutableLiveData<List<ItemModel>>()
 
@@ -29,20 +24,20 @@ class ListViewModel : ViewModel() {
         try {
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
                 itemList)
-            Timber.i("Report Load Success : ${itemList.value.toString()}")
+            Timber.i("List Load Success : ${itemList.value.toString()}")
         }
         catch (e: Exception) {
-            Timber.i("Report Load Error : $e.message")
+            Timber.i("List Load Error : $e.message")
         }
     }
 
     fun delete(userid: String, id: String) {
         try {
             FirebaseDBManager.delete(userid,id)
-            Timber.i("Report Delete Success")
+            Timber.i("List Delete Success")
         }
         catch (e: Exception) {
-            Timber.i("Report Delete Error : $e.message")
+            Timber.i("List Delete Error : $e.message")
         }
     }
 
