@@ -17,6 +17,8 @@ class ListDetailFragment : Fragment() {
     private var _fragBinding: FragmentListdetailBinding? = null
     private val fragBinding get() = _fragBinding!!
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
