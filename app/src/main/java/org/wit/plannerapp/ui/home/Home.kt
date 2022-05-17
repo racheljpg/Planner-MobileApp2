@@ -1,22 +1,16 @@
 package org.wit.plannerapp.ui.home
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.location.Location
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -27,7 +21,6 @@ import org.wit.plannerapp.databinding.HomeBinding
 import org.wit.plannerapp.databinding.NavHeaderMainBinding
 import org.wit.plannerapp.ui.auth.LoggedInViewModel
 import org.wit.plannerapp.ui.auth.Login
-import timber.log.Timber
 
 class Home : AppCompatActivity() {
 
@@ -56,7 +49,7 @@ class Home : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_add, R.id.nav_list, R.id.nav_slideshow), drawerLayout)
+            R.id.nav_add, R.id.nav_list, R.id.nav_listdetail), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val navView = homeBinding.navView

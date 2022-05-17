@@ -9,7 +9,9 @@
 
     <string name="menu_add">Add</string>
     <string name="menu_list">List</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_listdetail">List Detail</string>
+
+    <string name="message">Message :</string>
 
 
     <string name="messageLoading">Please Wait while the Donations are Loading...</string>
