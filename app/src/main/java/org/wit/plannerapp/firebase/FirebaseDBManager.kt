@@ -1,7 +1,6 @@
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import org.wit.plannerapp.models.ItemModel
 import org.wit.plannerapp.models.PlannerStore
 import timber.log.Timber
@@ -15,7 +14,26 @@ object FirebaseDBManager : PlannerStore {
     }
 
     override fun findAll(userid: String, itemList: MutableLiveData<List<ItemModel>>) {
-        TODO("Not yet implemented")
+
+        database.child("user-items").child(userid)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase Donation error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<ItemModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val item = it.getValue(ItemModel::class.java)
+                        localList.add(item!!)
+                    }
+                    database.child("user-items").child(userid)
+                        .removeEventListener(this)
+
+                    itemList.value = localList
+                }
+            })
     }
 
     override fun findById(userid: String, itemid: String, item: MutableLiveData<ItemModel>) {
