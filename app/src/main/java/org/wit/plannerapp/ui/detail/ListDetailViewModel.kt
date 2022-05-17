@@ -13,8 +13,4 @@ class ListDetailViewModel : ViewModel() {
     val observableItem: LiveData<ItemModel>
         get() = item
 
-    fun getItem(id: Long) {
-        item.value = PlannerManager.findById(id)
-    }
-
 }
