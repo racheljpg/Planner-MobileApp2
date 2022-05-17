@@ -18,7 +18,7 @@ object FirebaseDBManager : PlannerStore {
         database.child("user-items").child(userid)
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Donation error : ${error.message}")
+                    Timber.i("Firebase Item error : ${error.message}")
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -34,10 +34,6 @@ object FirebaseDBManager : PlannerStore {
                     itemList.value = localList
                 }
             })
-    }
-
-    override fun findById(userid: String, itemid: String, item: MutableLiveData<ItemModel>) {
-        TODO("Not yet implemented")
     }
 
     override fun create(firebaseUser: MutableLiveData<FirebaseUser>, item: ItemModel) {
@@ -60,10 +56,35 @@ object FirebaseDBManager : PlannerStore {
     }
 
     override fun delete(userid: String, itemid: String) {
-        TODO("Not yet implemented")
+
+        val childDelete : MutableMap<String, Any?> = HashMap()
+        childDelete["/items/$itemid"] = null
+        childDelete["/user-items/$userid/$itemid"] = null
+
+        database.updateChildren(childDelete)
     }
 
     override fun update(userid: String, itemid: String, item: ItemModel) {
-        TODO("Not yet implemented")
+
+        val itemValues = item.toMap()
+
+        val childUpdate : MutableMap<String, Any?> = HashMap()
+        childUpdate["items/$itemid"] = itemValues
+        childUpdate["user-items/$userid/$itemid"] = itemValues
+
+        database.updateChildren(childUpdate)
     }
+
+    override fun findById(userid: String, itemid: String, item: MutableLiveData<ItemModel>) {
+
+        database.child("user-items").child(userid)
+            .child(itemid).get().addOnSuccessListener {
+                item.value = it.getValue(ItemModel::class.java)
+                Timber.i("firebase Got value ${it.value}")
+            }.addOnFailureListener{
+                Timber.e("firebase Error getting data $it")
+            }
+    }
+
+
 }
