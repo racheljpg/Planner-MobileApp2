@@ -5,7 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -25,6 +27,8 @@ import org.wit.plannerapp.firebase.FirebaseImageManager
 import org.wit.plannerapp.ui.auth.LoggedInViewModel
 import org.wit.plannerapp.ui.auth.Login
 import org.wit.plannerapp.utils.customTransformation
+import org.wit.plannerapp.utils.readImageUri
+import org.wit.plannerapp.utils.showImagePicker
 import timber.log.Timber
 
 class Home : AppCompatActivity() {
@@ -113,6 +117,8 @@ class Home : AppCompatActivity() {
             }
         })
 
+        registerImagePickerCallback()
+
     }
 
 
@@ -133,6 +139,29 @@ class Home : AppCompatActivity() {
         Timber.i("DX Init Nav Header")
         headerView = homeBinding.navView.getHeaderView(0)
         navHeaderBinding = NavHeaderMainBinding.bind(headerView)
+
+        navHeaderBinding.navHeaderImage.setOnClickListener {
+            showImagePicker(intentLauncher)
+        }
+    }
+
+    private fun registerImagePickerCallback() {
+        intentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            Timber.i("DX registerPickerCallback() ${readImageUri(result.resultCode, result.data).toString()}")
+                            FirebaseImageManager
+                                .updateUserImage(loggedInViewModel.liveFirebaseUser.value!!.uid,
+                                    readImageUri(result.resultCode, result.data),
+                                    navHeaderBinding.navHeaderImage,
+                                    true)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 
 }

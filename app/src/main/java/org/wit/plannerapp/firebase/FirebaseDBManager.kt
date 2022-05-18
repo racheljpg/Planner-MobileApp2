@@ -104,5 +104,23 @@ object FirebaseDBManager : PlannerStore {
             }
     }
 
+    fun updateImageRef(userid: String,imageUri: String) {
+
+        val userItems = database.child("user-items").child(userid)
+        val allItems = database.child("items")
+
+        userItems.addListenerForSingleValueEvent(
+            object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach {
+                        it.ref.child("profilepic").setValue(imageUri)
+                        val item = it.getValue(ItemModel::class.java)
+                        allItems.child(item!!.uid!!)
+                            .child("profilepic").setValue(imageUri)
+                    }
+                }
+            })
+    }
 
 }
