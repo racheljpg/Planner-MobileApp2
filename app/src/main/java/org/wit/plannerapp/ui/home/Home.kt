@@ -1,6 +1,7 @@
 package org.wit.plannerapp.ui.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -20,9 +21,11 @@ import com.squareup.picasso.Picasso
 import org.wit.plannerapp.R
 import org.wit.plannerapp.databinding.HomeBinding
 import org.wit.plannerapp.databinding.NavHeaderMainBinding
+import org.wit.plannerapp.firebase.FirebaseImageManager
 import org.wit.plannerapp.ui.auth.LoggedInViewModel
 import org.wit.plannerapp.ui.auth.Login
 import org.wit.plannerapp.utils.customTransformation
+import timber.log.Timber
 
 class Home : AppCompatActivity() {
 
@@ -57,23 +60,42 @@ class Home : AppCompatActivity() {
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
 
+        initNavHeader()
     }
 
     private fun updateNavHeader(currentUser: FirebaseUser) {
-        var headerView = homeBinding.navView.getHeaderView(0)
-        navHeaderBinding = NavHeaderMainBinding.bind(headerView)
+        FirebaseImageManager.imageUri.observe(this, { result ->
+            if(result == Uri.EMPTY) {
+                Timber.i("DX NO Existing imageUri")
+                if (currentUser.photoUrl != null) {
+                    //if you're a google user
+                    FirebaseImageManager.updateUserImage(
+                        currentUser.uid,
+                        currentUser.photoUrl,
+                        navHeaderBinding.navHeaderImage,
+                        false)
+                }
+                else
+                {
+                    Timber.i("DX Loading Existing Default imageUri")
+                    FirebaseImageManager.updateDefaultImage(
+                        currentUser.uid,
+                        R.drawable.ic_launcher_pikachu,
+                        navHeaderBinding.navHeaderImage)
+                }
+            }
+            else // load existing image from firebase
+            {
+                Timber.i("DX Loading Existing imageUri")
+                FirebaseImageManager.updateUserImage(
+                    currentUser.uid,
+                    FirebaseImageManager.imageUri.value,
+                    navHeaderBinding.navHeaderImage, false)
+            }
+        })
         navHeaderBinding.navHeaderEmail.text = currentUser.email
         if(currentUser.displayName != null)
             navHeaderBinding.navHeaderName.text = currentUser.displayName
-
-        if(currentUser.photoUrl != null && currentUser.displayName != null) {
-            navHeaderBinding.navHeaderName.text = currentUser.displayName
-            Picasso.get().load(currentUser.photoUrl)
-                .resize(200, 200)
-                .transform(customTransformation())
-                .centerCrop()
-                .into(navHeaderBinding.navHeaderImage)
-        }
     }
 
 
@@ -82,7 +104,7 @@ class Home : AppCompatActivity() {
         loggedInViewModel = ViewModelProvider(this).get(LoggedInViewModel::class.java)
         loggedInViewModel.liveFirebaseUser.observe(this, Observer { firebaseUser ->
             if (firebaseUser != null)
-                updateNavHeader(loggedInViewModel.liveFirebaseUser.value!!)
+                updateNavHeader(firebaseUser)
         })
 
         loggedInViewModel.loggedOut.observe(this, Observer { loggedout ->
@@ -105,6 +127,12 @@ class Home : AppCompatActivity() {
         val intent = Intent(this, Login::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }
+
+    private fun initNavHeader() {
+        Timber.i("DX Init Nav Header")
+        headerView = homeBinding.navView.getHeaderView(0)
+        navHeaderBinding = NavHeaderMainBinding.bind(headerView)
     }
 
 }
