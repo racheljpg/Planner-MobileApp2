@@ -18,6 +18,7 @@ data class ItemModel(
     var uid: String? = "",
     var title: String = "N/A",
     var description: String = "N/A",
+    var profilepic: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable
 {
@@ -27,6 +28,7 @@ data class ItemModel(
             "uid" to uid,
             "title" to title,
             "description" to description,
+            "profilepic" to profilepic,
             "email" to email
         )
     }
