@@ -10,7 +10,25 @@ object FirebaseDBManager : PlannerStore {
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     override fun findAll(itemList: MutableLiveData<List<ItemModel>>) {
-        TODO("Not yet implemented")
+        database.child("items")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase Planner error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<ItemModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val item = it.getValue(ItemModel::class.java)
+                        localList.add(item!!)
+                    }
+                    database.child("items")
+                        .removeEventListener(this)
+
+                    itemList.value = localList
+                }
+            })
     }
 
     override fun findAll(userid: String, itemList: MutableLiveData<List<ItemModel>>) {

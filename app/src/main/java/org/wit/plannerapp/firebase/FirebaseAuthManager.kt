@@ -43,7 +43,7 @@ class FirebaseAuthManager(application: Application) {
             checkStorageForExistingProfilePic(
                 firebaseAuth!!.currentUser!!.uid)*/
         }
-        //configureGoogleSignIn()
+        configureGoogleSignIn()
 
     }
 
@@ -73,22 +73,41 @@ class FirebaseAuthManager(application: Application) {
             }
     }
 
-//    private fun configureGoogleSignIn() {
-//
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(application!!.getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//
-//        googleSignInClient.value = GoogleSignIn.getClient(application!!.applicationContext,gso)
-//    }
+    private fun configureGoogleSignIn() {
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(application!!.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient.value = GoogleSignIn.getClient(application!!.applicationContext,gso)
+    }
+
+    fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        Timber.i( "PlannerApp firebaseAuthWithGoogle:" + acct.id!!)
+
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        firebaseAuth!!.signInWithCredential(credential)
+            .addOnCompleteListener(application!!.mainExecutor) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update with the signed-in user's information
+                    Timber.i( "signInWithCredential:success")
+                    liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Timber.i( "signInWithCredential:failure $task.exception")
+                    errorStatus.postValue(true)
+                }
+            }
+    }
 
     fun logOut() {
 
         firebaseAuth!!.signOut()
-        Timber.i( "DonationX : firebaseAuth Signed out")
+        Timber.i( "Planner App : firebaseAuth Signed out")
         //googleSignInClient.value!!.signOut()
-        Timber.i( "DonationX : googleSignInClient Signed out")
+        Timber.i( "Planner App : googleSignInClient Signed out")
         //FirebaseImageManager.imageUri = null!!
         loggedOut.postValue(true)
         errorStatus.postValue(false)
