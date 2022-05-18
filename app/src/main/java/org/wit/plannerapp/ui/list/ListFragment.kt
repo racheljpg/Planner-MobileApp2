@@ -2,11 +2,9 @@ package org.wit.plannerapp.ui.list
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -16,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.wit.plannerapp.R
 import org.wit.plannerapp.adapters.PlannerAdapter
 import org.wit.plannerapp.adapters.PlannerItemListener
 import org.wit.plannerapp.databinding.FragmentListBinding
@@ -84,6 +83,23 @@ class ListFragment : Fragment(), PlannerItemListener {
     override fun onPlannerItemClick(item: ItemModel) {
         val action = ListFragmentDirections.actionNavListToItemListDetails(item.uid!!)
         findNavController().navigate(action)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+
+        //I could not figure out how to rename this to toggleItems without breaking everything?!
+        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+        item.setActionView(R.layout.togglebutton_layout)
+        val toggleDonations: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleDonations.isChecked = false
+
+        toggleDonations.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) listViewModel.loadAll()
+            else listViewModel.load()
+        }
+
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 

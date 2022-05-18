@@ -18,10 +18,13 @@ class ListViewModel : ViewModel() {
 
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
 
+    var readOnly = MutableLiveData(false)
+
     init { load() }
 
     fun load() {
         try {
+            readOnly.value = false
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
                 itemList)
             Timber.i("List Load Success : ${itemList.value.toString()}")
@@ -38,6 +41,17 @@ class ListViewModel : ViewModel() {
         }
         catch (e: Exception) {
             Timber.i("List Delete Error : $e.message")
+        }
+    }
+
+    fun loadAll() {
+        try {
+            readOnly.value = true
+            FirebaseDBManager.findAll(itemList)
+            Timber.i("Report LoadAll Success : ${itemList.value.toString()}")
+        }
+        catch (e: Exception) {
+            Timber.i("Report LoadAll Error : $e.message")
         }
     }
 

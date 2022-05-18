@@ -64,6 +64,7 @@
     </style>
     <!-- END Firebase Resources-->
 
+    <!-- Toggle Button -->
     <style name="toggleStyle">
         <item name="colorControlActivated">@color/colorWhite</item>
         <item name="colorControlHighlight">@color/black</item>

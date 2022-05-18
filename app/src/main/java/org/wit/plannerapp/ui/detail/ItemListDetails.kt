@@ -50,7 +50,6 @@ class ItemListDetails : Fragment() {
     }
 
 
-
     private fun render() {
         fragBinding.plannervm = itemDetailViewModel
         Timber.i("Retrofit fragBinding.plannervm == $fragBinding.plannervm")
